@@ -71,7 +71,7 @@ export const Hero: React.FC = () => {
         transition={{ duration: 1 }}
         className="bg-sky-950 w-1/2 h-screen flex items-center justify-center"
       >
-        <div className="text-center -rotate-90 text-start flex flex-col">
+        <div className="text-center -rotate-90 text-start flex flex-col font-yatra">
           <h1 className="text-6xl text-white font-bold">App Developer</h1>
           <h1 className="text-6xl text-zinc-400 opacity-70 font-bold">Web Developer</h1>
           <h1 className="text-6xl text-neutral-600 font-bold">Meta Developer</h1>
