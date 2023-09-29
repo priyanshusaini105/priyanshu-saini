@@ -1,12 +1,12 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, useScroll,useSpring } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 
 interface Props {}
 
 export const Hero: React.FC = () => {
-  const imgRef = useRef<HTMLImageElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
   const [imgPosition, setImgPostion] = useState<{
     x: number | number[] | string;
     y: number | number[];
@@ -15,11 +15,14 @@ export const Hero: React.FC = () => {
     y: 0,
   });
 
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ["start end", "end end"],
+  });
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
   // move img to the below with frammer animation
 
@@ -74,11 +77,12 @@ export const Hero: React.FC = () => {
           height={400}
           alt="Priyanshu"
           className="w-[28rem] h-[28rem]"
-          ref={imgRef}
         />
-      <motion.div className="bg-pink-500 w-screen h-[100vw] fixed  rounded-full mx-auto top-[3rem]"  style={{ scaleX,scaleY:scaleX }}>
-      </motion.div>
-      
+        <motion.div
+          className="bg-pink-500 w-screen h-[100vw] rounded-full mx-auto top-[3rem]"
+          ref={heroRef}
+          style={{ scale: scaleX }}
+        ></motion.div>
       </motion.div>
       {/* Right Background */}
       <motion.div
