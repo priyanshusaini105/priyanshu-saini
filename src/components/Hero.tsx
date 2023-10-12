@@ -1,7 +1,8 @@
 "use client";
 import React, { useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll } from "framer-motion"
+
 
 interface Props {}
 
@@ -10,8 +11,10 @@ export const Hero: React.FC = () => {
   const imgRef=useRef<HTMLImageElement>(null);
   const [imgPosition,setImgPostion]=useState<{x:number|number[]|string,y:number|number[]}>({
     x:'-50%',y:0
-  })
+  });
+  const { scrollYProgress } = useScroll();
 
+console.log(scrollYProgress)
   // move img to the below with frammer animation
 
   const moveImage=()=>{
@@ -40,18 +43,23 @@ export const Hero: React.FC = () => {
         transition={{ duration: 1 }}
         className="bg-white w-1/2 h-screen flex items-center justify-center"
       >
-        <div className="text-center">
-          <h1 className="text-6xl text-gray-800 font-bold" onClick={()=>moveImage()}>App Developer</h1>
+        <div className="text-start w-[28rem]">
+          <p>Hi,I am </p>
+          <h1 className="text-6xl text-gray-800 font-bold" onClick={()=>moveImage()}>Priyanshu Saini</h1>
           <p className="mt-4 text-xl text-gray-600">
-            Turning Ideas into Reality
+          A Software Engineer. I Help <span>Startups</span> to Launch And Grow Their Products
           </p>
+          <p>
+          over 2yrs+ of professional experience working with several programming tools to deliver quality results to clients. i have expert knowledge in full stack engineering, software testing, and App development.
+          </p>
+          <div className="">Get Started</div>
         </div>
       </motion.div>
 
       {/* Image */}
       <motion.div className="absolute left-1/2 transform bottom-0"
         animate={imgPosition}
-        transition={{duration:1.5,type:'spring',}}
+        transition={{duration:1.2,type:'spring',}}
         initial={{x:'-50%'}}
       >
         <Image
@@ -71,10 +79,10 @@ export const Hero: React.FC = () => {
         transition={{ duration: 1 }}
         className="bg-sky-950 w-1/2 h-screen flex items-center justify-center"
       >
-        <div className="text-center -rotate-90 text-start flex flex-col font-yatra">
-          <h1 className="text-6xl text-white font-bold">App Developer</h1>
-          <h1 className="text-6xl text-zinc-400 opacity-70 font-bold">Web Developer</h1>
-          <h1 className="text-6xl text-neutral-600 font-bold">Meta Developer</h1>
+        <div className="text-center -rotate-90 text-start flex flex-col font-yatra gap-5">
+          <h1 className="text-7xl text-white font-bold">App Developer</h1>
+          <h1 className="text-7xl text-zinc-400 font-bold">Web Developer</h1>
+          <h1 className="text-7xl text-neutral-600 font-bold">Meta Developer</h1>
         </div>
       </motion.div>
     </section>
