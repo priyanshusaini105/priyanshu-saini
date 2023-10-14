@@ -1,11 +1,12 @@
-import { About, Hero } from "@/components";
+import { About, Hero,BgVideo } from "@/components";
 
 
 export default function Home() {
   return (
     <main className="">
-      <Hero/>
-      <About/>
+      <BgVideo/>
+      {/* <Hero/>
+      <About/> */}
     </main>
   )
 }
