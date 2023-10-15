@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Yatra_One,Imprima,Montserrat } from 'next/font/google'
+import { Yatra_One,Imprima,Montserrat,Varela_Round } from 'next/font/google'
 
 const yatraOne=Yatra_One({
   subsets: ['latin'],
@@ -19,6 +19,13 @@ const montserrat = Montserrat({
   weight:['400','600','700']
 })
 
+export const varelaRound= Varela_Round ({
+  subsets:['latin'],
+  variable:'--font-varela-round',
+  weight:['400']
+})
+
+
 export const metadata: Metadata = {
   title: 'Priyanshu Saini',
   description: 'App and web developer',
@@ -31,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${imprima.variable} ${yatraOne.variable} ${montserrat.variable}`}>{children}</body>
+      <body className={`${imprima.variable} ${yatraOne.variable} ${montserrat.variable} ${varelaRound.variable}`}>{children}</body>
     </html>
   )
 }
