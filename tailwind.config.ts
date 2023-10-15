@@ -15,6 +15,7 @@ const config: Config = {
       },
         fontFamily: {
           yatra: ['var(--font-yatra)'],
+          mont:['var(--font-montserrat)']
       },
     },
   },
