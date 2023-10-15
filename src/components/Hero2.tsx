@@ -7,29 +7,29 @@ import Link from "next/link";
 const Hero2 = () => {
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
-    hover: { scaleX: 1.03, scaleY: 0.98 },
+    hover: { scaleX: 1.03, scaleY: 0.98 ,transition:{type:'spring'}},
   };
 
   const span1Variants = {
     initial: { x: 0 },
-    hover: { x: "100%", transition: { delay: 0.3 } }, // Translate to the left with a delay
+    hover: { x: "100%", transition: { delay: 0.3 } }, 
   };
 
   const span2Variants = {
     initial: { x: 0 },
-    hover: { x: "100%", transition: { delay: 0.5 } }, // Translate to the left with a delay
+    hover: { x: "100%", transition: { delay: 0.5 ,type:'spring'} }, 
   };
 
   const wobbleVariants = {
     hover: {
-      x: [0, -10, 10, -10, 10, 0], // The x values to create a wobble effect
+      x: [0, -10, 10, -10, 10, 0],
       transition: { type: "spring", stiffness: 200, damping: 10 },
     },
   };
 
   return (
-    <section className="relative h-screen bg-[#fafafa] flex flex-col gap-5 justify-center pt-64">
-      <div className="flex flex-col justify-center items-center gap-8 text-center justify-center">
+    <section className="relative h-screen bg-[#fafafa] flex flex-col gap-5 items-center pt-24">
+      <div className="flex flex-col justify-center items-center gap-8 text-center ">
         <h1 className="text-6xl text-center font-bold font-mont mb-8">
           Code <br />
           that Speaks
