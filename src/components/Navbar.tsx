@@ -1,6 +1,7 @@
 import { NavItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
+import { WobbleButton } from ".";
 
 export const Navbar = () => {
   const navItems: NavItem[] = [
@@ -41,7 +42,9 @@ export const Navbar = () => {
             );
           })}
         </ul>
-        <div></div>
+        <Link href="#explore" className="rounded-full">
+          <WobbleButton title='Explore' textStyle={{fontSize:'1rem'}}/>
+        </Link>
       </div>
     </nav>
   );
