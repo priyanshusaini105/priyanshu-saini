@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-const Hero2 = () => {
+export const Hero2 = () => {
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
     hover: { scaleX: 1.03, scaleY: 0.98 ,transition:{type:'spring'}},
@@ -88,5 +88,3 @@ const Hero2 = () => {
     </section>
   );
 };
-
-export default Hero2;

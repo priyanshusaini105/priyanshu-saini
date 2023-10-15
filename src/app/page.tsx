@@ -1,10 +1,10 @@
-import { About, Hero,BgVideo } from "@/components";
-import Hero2 from '../components/Hero2';
+import { About, Hero,BgVideo, Navbar,Hero2 } from "@/components";
 
 
 export default function Home() {
   return (
     <main className="">
+      <Navbar/>
       <Hero2/>
       {/* <Laptop/> */}
       {/* <BgVideo/> */}
