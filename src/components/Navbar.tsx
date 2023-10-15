@@ -1,6 +1,6 @@
+import { NavItem } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
-import {NavItem} from 'src/type'
 
 export const Navbar = () => {
     const navItems:NavItem[]=[
@@ -8,17 +8,32 @@ export const Navbar = () => {
           id:'1',
           title:'Home',
           href:'#home'
+        },
+        {
+          id:'1',
+          title:'Home',
+          href:'#home'
+        },
+        {
+          id:'1',
+          title:'Home',
+          href:'#home'
+        },
+        {
+          id:'1',
+          title:'Home',
+          href:'#home'
         }
     ]
   return (
-    <nav>
-      <div className="w-8/10 fixed bg-white rounded-full">
-        <Image />
-        <ul>
+    <nav className="fixed w-full">
+      <div className="w-8/10 p-2 bg-white rounded-full flex justify-between">
+        <Image src={""} alt={""} />
+        <ul className="flex gap-4">
             {
                 navItems.map((item,index)=>{
                     return(
-                        <li>
+                        <li key={item.id}>
                             <Link href={item.href}>
                                 {item.href}
                             </Link>
