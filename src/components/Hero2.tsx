@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import React from "react";
 
 const Hero2 = () => {
+
     return (
-        <div className="relative h-screen">
+        <div className="relative h-screen bg-white">
             <div className="absolute inset-0">
                 <img
                     className="w-full h-full object-cover"
@@ -20,7 +21,7 @@ const Hero2 = () => {
                     transition={{ duration: 1 }}
                     className="text-white text-center"
                 >
-                    <h1 className="text-4xl font-bold mb-4">Welcome to my portfolio</h1>
+                    <h1 className="text-8xl font-bold mb-4">Welcome to my portfolio</h1>
                     <p className="text-lg mb-8">
                         I am a full-stack developer with experience in TypeScript, React,
                         and Node.js.
@@ -30,6 +31,7 @@ const Hero2 = () => {
                     </button>
                 </motion.div>
             </div>
+            <Image src=''/>
         </div>
     );
 };
