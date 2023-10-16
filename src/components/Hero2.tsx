@@ -1,5 +1,5 @@
 "use client";
-import { motion,useScroll,useSpring } from "framer-motion";
+import { motion,useScroll,useSpring ,useTransform} from "framer-motion";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,7 +7,14 @@ import Link from "next/link";
 export const Hero2 = () => {
  
   const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress) 
+  // const scale = scrollYProgress
+  const trasnsformed = useTransform(
+    scrollYProgress,
+    [0, 100],
+    [0, 200],
+    // { clamp: false }
+    )
+    const scale = useSpring(trasnsformed) 
 
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
@@ -30,6 +37,8 @@ export const Hero2 = () => {
       transition: { type: "spring", stiffness: 200, damping: 10 },
     },
   };
+
+  console.log(scrollYProgress)
 
   return (
     <section className="relative h-screen bg-[#fafafa] flex flex-col gap-5 items-center pt-24">
@@ -82,8 +91,7 @@ export const Hero2 = () => {
           </motion.div>
         </Link>
       </div>
-      <div className='relative'>
-        <motion.div className='absolute rounded-full bg-purple-700 w-full h-full top-0 left-0' style={{scaleX:scaleX*10}}></motion.div>
+      <div className=''>
         <Image
           src="/img/priyanshusaini.png"
           width={400}
@@ -91,6 +99,7 @@ export const Hero2 = () => {
           alt="Priyanshu Saini"
           className="relative z-20"
         />
+        <motion.div className='absolute rounded-full bg-purple-700 w-screen h-[100vw] top-0 left-0 aspect-square mx-auto' style={{scaleX:scale,scaleY:scale}}></motion.div>
       </div>
     </section>
   );
