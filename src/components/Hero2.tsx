@@ -1,10 +1,14 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion,useScroll,useSpring } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 export const Hero2 = () => {
+ 
+  const { scrollYProgress } = useScroll()
+  const scaleX = useSpring(scrollYProgress) 
+
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
     hover: { scaleX: 1.03, scaleY: 0.98, transition: { type: "spring" } },
@@ -79,14 +83,14 @@ export const Hero2 = () => {
         </Link>
       </div>
       <div className='relative'>
+        <motion.div className='absolute rounded-full bg-purple-700 w-full h-full top-0 left-0' style={{scaleX:scaleX*10}}></motion.div>
         <Image
           src="/img/priyanshusaini.png"
           width={400}
           height={400}
           alt="Priyanshu Saini"
-          className=""
+          className="relative z-20"
         />
-        <motion.div className='absolute rounded-full bg-purple-700'></motion.div>
       </div>
     </section>
   );
