@@ -15,7 +15,7 @@ export const WobbleButton:FC<Props> = ({className,children,title,textStyle,type}
 
   const size={
     lg:'w-48 h-48',
-    md:'w-36 p-2',
+    md:'px-16 p-2',
     sm:'w-24 h-24'
   }
 

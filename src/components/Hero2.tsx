@@ -7,17 +7,17 @@ import Link from "next/link";
 export const Hero2 = () => {
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
-    hover: { scaleX: 1.03, scaleY: 0.98 ,transition:{type:'spring'}},
+    hover: { scaleX: 1.03, scaleY: 0.98, transition: { type: "spring" } },
   };
 
   const span1Variants = {
     initial: { x: 0 },
-    hover: { x: "100%", transition: { delay: 0.3 } }, 
+    hover: { x: "100%", transition: { delay: 0.3 } },
   };
 
   const span2Variants = {
     initial: { x: 0 },
-    hover: { x: "100%", transition: { delay: 0.5 ,type:'spring'} }, 
+    hover: { x: "100%", transition: { delay: 0.5, type: "spring" } },
   };
 
   const wobbleVariants = {
@@ -78,13 +78,16 @@ export const Hero2 = () => {
           </motion.div>
         </Link>
       </div>
-      <Image
-        src="/img/priyanshusaini.png"
-        width={400}
-        height={400}
-        alt="Priyanshu Saini"
-        className=""
-      />
+      <div className='relative'>
+        <Image
+          src="/img/priyanshusaini.png"
+          width={400}
+          height={400}
+          alt="Priyanshu Saini"
+          className=""
+        />
+        <motion.div className='absolute rounded-full bg-purple-700'></motion.div>
+      </div>
     </section>
   );
 };
