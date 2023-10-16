@@ -27,23 +27,23 @@ export const Navbar = () => {
     },
   ];
   return (
-    <nav className="fixed w-full z-10">
-      <div className="w-fit p-2 bg-white rounded-full flex justify-between items-center gap-4">
+    <nav className="fixed w-full z-10 m-3">
+      <div className="w-fit p-3 bg-white rounded-full flex justify-between items-center gap-12 mx-auto">
         <Link href='/' className="flex items-center">
           <Image src="/img/logo.svg" width={40} height={40} alt={"Priyanshu"} />
           <span className="font-bold font-varela text-xl">Priyanshu Saini</span>
         </Link>
-        <ul className="flex gap-4">
+        <ul className="flex gap-6">
           {navItems.map((item, index) => {
             return (
               <li key={item.id}>
-                <Link href={item.href}>{item.href}</Link>
+                <Link href={item.href} className='font-mont hover:text-[#8330C2] duration-200 ease-in'>{item.title}</Link>
               </li>
             );
           })}
         </ul>
         <Link href="#explore" className="rounded-full">
-          <WobbleButton title='Explore' textStyle={{fontSize:'1rem'}}/>
+          <WobbleButton title='Explore' textStyle={{fontSize:'1rem'}} type='md'/>
         </Link>
       </div>
     </nav>

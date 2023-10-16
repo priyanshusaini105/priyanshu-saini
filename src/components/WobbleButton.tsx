@@ -15,7 +15,7 @@ export const WobbleButton:FC<Props> = ({className,children,title,textStyle,type}
 
   const size={
     lg:'w-48 h-48',
-    md:'w-32 h-32',
+    md:'w-36 p-2',
     sm:'w-24 h-24'
   }
 
@@ -69,7 +69,7 @@ export const WobbleButton:FC<Props> = ({className,children,title,textStyle,type}
                 whileHover="hover"
               ></motion.div>
             </motion.span>
-            <span className={`text-white flex ${size[type]} gap-4 items-center justify-around z-50 relative`}>
+            <span className={`text-white flex ${size[type]} gap-4 items-center justify-center z-50 relative`}>
               <span className="text-3xl uppercase font-mont " style={textStyle}>{title??children} </span>
               <Image
                 src="/icons/arrow-right.svg"
