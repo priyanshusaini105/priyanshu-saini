@@ -6,13 +6,13 @@ import Link from "next/link";
 
 export const Hero2 = () => {
   const { scrollYProgress } = useScroll();
-  // const scale = scrollYProgress
   const trasnsformed = useTransform(
     scrollYProgress,
     [0, 100],
     [0, 200],
-    // { clamp: false }
-  );
+    { clamp: false }
+    );
+    // const scale = trasnsformed
   const scale = useSpring(trasnsformed);
 
   const div1Variants = {
@@ -40,9 +40,9 @@ export const Hero2 = () => {
   console.log(scrollYProgress);
 
   return (
-    <section className="relative h-screen bg-[#fafafa] flex flex-col gap-5 items-center pt-24">
+    <section className="relative h-screen flex flex-col gap-5 items-center pt-24">
       <div className="flex flex-col justify-center items-center gap-8 text-center ">
-        <h1 className="text-6xl text-center font-bold font-mont mb-8">
+        <h1 className="text-6xl xl:text-8xl text-center font-bold font-mont mb-8 lg:mt-12">
           Code <br />
           that Speaks
         </h1>
@@ -90,16 +90,16 @@ export const Hero2 = () => {
           </motion.div>
         </Link>
       </div>
-      <div className="">
+      <div className="my-4 overflow-x-hidden w-full">
         <Image
           src="/img/priyanshusaini.png"
           width={400}
           height={400}
           alt="Priyanshu Saini"
-          className="relative z-20"
+          className="relative z-10 mx-auto"
         />
         <motion.div
-          className="absolute rounded-full bg-purple-700 w-screen h-[100vw] top-0 left-0 aspect-square mx-auto"
+          className="absolute rounded-full bg-purple-800 w-screen h-[100vw] top-0 left-0 aspect-square mx-auto z-[-1]"
           style={{ scaleX: scale, scaleY: scale }}
         ></motion.div>
       </div>

@@ -27,7 +27,7 @@ export const Navbar = () => {
     },
   ];
   return (
-    <nav className="fixed w-full z-10 m-3">
+    <nav className="fixed w-full z-20 m-3 lg:mt-8">
       <div className="w-fit p-3 bg-white rounded-full flex justify-between items-center gap-12 mx-auto">
         <Link href='/' className="flex items-center">
           <Image src="/img/logo.svg" width={40} height={40} alt={"Priyanshu"} />

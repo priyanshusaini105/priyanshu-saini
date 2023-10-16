@@ -38,7 +38,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${imprima.variable} ${yatraOne.variable} ${montserrat.variable} ${varelaRound.variable}`}>{children}</body>
+      <body className={`${imprima.variable} ${yatraOne.variable} ${montserrat.variable} ${varelaRound.variable}  bg-[#fafafa]`}>{children}</body>
     </html>
   )
 }
