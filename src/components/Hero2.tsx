@@ -5,7 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const Hero2 = () => {
-  const { scrollYProgress } = useScroll();
+  const { scrollYProgress,scrollY } = useScroll();
+  console.log(scrollY.get())
   const trasnsformed = useTransform(
     scrollYProgress,
     [0, 100],
@@ -37,7 +38,6 @@ export const Hero2 = () => {
     },
   };
 
-  console.log(scrollYProgress);
 
   return (
     <section className="relative h-screen flex flex-col gap-5 items-center pt-24">
@@ -90,7 +90,7 @@ export const Hero2 = () => {
           </motion.div>
         </Link>
       </div>
-      <div className="my-4 overflow-x-hidden w-full">
+      <div className="my-4 w-full">
         <Image
           src="/img/priyanshusaini.png"
           width={400}
