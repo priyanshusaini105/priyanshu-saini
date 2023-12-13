@@ -14,7 +14,10 @@ export const Hero2 = () => {
     { clamp: false }
     );
     // const scale = trasnsformed
-  const scale = useSpring(trasnsformed);
+  const scale = useSpring(trasnsformed,{
+    stiffness: 400,
+    damping: 60,
+  });
 
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
