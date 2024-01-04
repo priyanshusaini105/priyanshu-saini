@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      borderRadius:{
+        "4xl":'4rem'
+      },
       color:{
         accent:'#8330C2'
       },

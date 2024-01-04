@@ -5,16 +5,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const Hero2 = () => {
-  const { scrollYProgress,scrollY } = useScroll();
-  console.log(scrollY.get())
-  const trasnsformed = useTransform(
-    scrollYProgress,
-    [0, 100],
-    [0, 200],
-    { clamp: false }
-    );
-    // const scale = trasnsformed
-  const scale = useSpring(trasnsformed,{
+  const heroRef = React.useRef<HTMLDivElement>(null);
+  const { scrollYProgress, scrollY } = useScroll({
+    target: heroRef,
+  });
+  console.log(scrollY.get());
+  const trasnsformed = useTransform(scrollYProgress, [0, 100], [0, 200], {
+    clamp: false,
+  });
+  // const scale = trasnsformed
+  const scale = useSpring(trasnsformed, {
     stiffness: 400,
     damping: 60,
   });
@@ -41,9 +41,11 @@ export const Hero2 = () => {
     },
   };
 
-
   return (
-    <section className="relative h-screen flex flex-col gap-5 items-center pt-24">
+    <section
+      className="relative h-[150vh] overflow-hidden flex flex-col gap-5 items-center pt-24"
+      ref={heroRef}
+    >
       <div className="flex flex-col justify-center items-center gap-8 text-center ">
         <h1 className="text-6xl xl:text-8xl text-center font-bold font-mont mb-8 lg:mt-12">
           Code <br />
@@ -56,7 +58,7 @@ export const Hero2 = () => {
 
         <Link href="#explore" className="rounded-full">
           <motion.div
-            className="rounded-full bg-[#8330C2] overflow-hidden relative"
+            className="rounded-full bg-accent overflow-hidden relative"
             variants={div1Variants}
             whileHover="hover"
           >

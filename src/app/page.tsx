@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <main className="">
       <Navbar/>
-      {/* <Hero2/> */}
+      <Hero2/>
       <Quote/>
       {/* <Laptop/> */}
       {/* <BgVideo/> */}
