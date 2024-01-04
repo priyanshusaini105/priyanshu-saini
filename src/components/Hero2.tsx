@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { easeIn, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -9,15 +9,18 @@ export const Hero2 = () => {
   const { scrollYProgress, scrollY } = useScroll({
     target: heroRef,
   });
-  console.log(scrollY.get());
-  const trasnsformed = useTransform(scrollYProgress, [0, 100], [0, 200], {
+
+  const transformed = useTransform(scrollYProgress, [0, 100], [0, 200], {
     clamp: false,
   });
-  // const scale = trasnsformed
-  const scale = useSpring(trasnsformed, {
-    stiffness: 400,
+ 
+ 
+  const scale = useSpring(transformed, {
+    stiffness: 450,
     damping: 60,
   });
+
+  // const scale =transformed;
 
   const div1Variants = {
     initial: { scaleX: 1, scaleY: 1 },
@@ -104,7 +107,7 @@ export const Hero2 = () => {
           className="relative z-10 mx-auto"
         />
         <motion.div
-          className="absolute rounded-full bg-purple-800 w-screen h-[100vw] top-0 left-0 aspect-square mx-auto z-[-1]"
+          className="absolute rounded-full bg-purple-800 w-screen h-[100vw] top-0 left-0 aspect-square mx-auto z-[-1] ease-in"
           style={{ scaleX: scale, scaleY: scale }}
         ></motion.div>
       </div>
