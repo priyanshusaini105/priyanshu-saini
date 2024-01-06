@@ -1,255 +1,202 @@
 "use client";
 import React, { useEffect, useRef } from "react";
-import Matter, { Bodies, Body, Runner } from "matter-js";
+import Matter, { Bodies } from "matter-js";
+import p5 from "p5";
+
+const entityTexts = [
+  { text: "Whoa", color: "#ffc9c9" },
+  { text: "Super!", color: "#fbf3c5" },
+  { text: "Fantastic", color: "#c2fdbc" },
+  { text: "Amazing!", color: "#b6e4fb" },
+  { text: "Mind Blowing", color: "#fbb6cf" },
+  { text: "Awesome", color: "#b6e4fb" },
+  { text: "Great", color: "#c2fdbc" },
+  { text: "Excellent", color: "#fbf3c5" },
+  { text: "Incredible", color: "#ffc9c9" },
+  { text: "Unbelievable", color: "#fbb6cf" },
+];
 
 export const Header = () => {
-  const {
-    Engine,
-    World,
-    Bodies,
-    Constraint,
-    Composites,
-    Events,
-    MouseConstraint,
-    Render,
-    Composite,
-    Common,
-    Mouse,
-  } = Matter;
-
-  var world: Matter.World;
+  const { Engine, Composite, Bodies, MouseConstraint } = Matter;
 
   const worldRef = useRef<HTMLDivElement | null>(null);
-  const engine = useRef(Engine.create());
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const isPressed = useRef(false);
-  const boxRef = useRef<HTMLSpanElement | null>(null);
+  const engine = useRef<Matter.Engine>(Engine.create());
 
-  // let vector = new Two.Vector();
-  let entities = [];
-
-  const bodyText = [
-    "Idea",
-    "Idea",
-    "Idea",
-    "Money",
-    "Money",
-    "Tech",
-    "Concept",
-  ];
+  let entities = useRef<Body[]>([]);
 
   useEffect(() => {
-    if (!worldRef.current) return;
-    world = engine.current.world;
-    engine.current.gravity.y = 1;
-
-    const width = 1000;
-    const height = 600;
-
-    // const render = Render.create({
-    //   element: worldRef.current,
-    //   engine: engine.current,
-    //   options: {
-    //     width: width,
-    //     height: height,
-    //     wireframes: false,
-    //     background: "transparent",
-    //   },
-    // });
-
-
-
-    const bodies = bodyText.map((text, i) => {
-      const x = Math.random() * width;
-      const y = Math.random() * height;
-      const w = 100;
-      const h = 50;
-      const color = `hsl(${Math.random() * 360}, 100%, 50%)`;
-      const body = new Box(x, y, w, h, {
-        worldRef,
-        classList:[ "absolute","bg-slate-600","select-none","cursor-grab","rounded-full",'text-center',"z-[-1]"],
-        color,
-        text,
-      });
-      entities.push(body);
-      return body;
-    });
-
-    const ground = Bodies.rectangle(width / 2, height, width, 1, {
-      isStatic: true,
-      render: {
-        fillStyle: "transparent",
-        visible: false,
-      },
-    });
-    const leftWall = Bodies.rectangle(0, height / 2, 1, height, {
-      isStatic: true,
-      render: {
-        fillStyle: "transparent",
-        visible: false,
-      },
-    });
-    const rightWall = Bodies.rectangle(width, height / 2, 1, height, {
-      isStatic: true,
-      render: {
-        fillStyle: "transparent",
-        visible: false,
-      },
-    });
-    const topWall = Bodies.rectangle(width / 2, 0, width, 1, {
-      isStatic: true,
-      render: {
-        fillStyle: "transparent",
-        visible: false,
-      },
-    });
-
-    
-
-    World.add(world, [
-      ...bodies.map((body) => body.body),
-      ground,
-      leftWall,
-      rightWall,
-      topWall,
-    ]);
-
-    var mouse = Mouse.create(render.canvas),
-      mouseConstraint = MouseConstraint.create(engine.current, {
-        mouse: mouse,
-        constraint: {
-          stiffness: 0.2,
-          render: {
-            visible: false,
-          },
+    let world: Matter.World = engine.current.world;
+    let canvas: p5.Renderer | undefined;
+    let boundaries: Matter.Body[] = [];
+    const mouse = Matter.Mouse.create(worldRef.current ?? document.body);
+    let mouseConstraint = MouseConstraint.create(engine.current, {
+      mouse: mouse,
+      constraint: {
+        render: {
+          visible: true,
         },
-      });
-
-    Composite.add(world, mouseConstraint);
-
-    render.mouse = mouse;
-
-    // Runner.run(engine.current);
-    // Render.run(render);
-
-    const render = () => {
-      bodies.forEach((body) => {
-         body.render();
-      });
-      Engine.update(engine.current);
-      requestAnimationFrame(render);
-   };
-
-   requestAnimationFrame(render);
-
-    Events.on(engine, 'tick', () => {
-      console.log('tick');
+      },
     });
 
-    // var runner= Runner.create();
-    // Runner.run(runner, engine.current);
+    const sketch = (p: p5) => {
+      // setup
+      p.setup = () => {
+        const width = p.windowWidth;
+        const height = p.windowHeight;
+        canvas = p.createCanvas(width, height);
+        canvas.parent(worldRef.current ?? document.body);
+
+        boundaries = [
+          //ground
+          Bodies.rectangle(width / 2, height, width, 50, {
+            isStatic: true,
+          }),
+          Bodies.rectangle(0, height / 2, 5, height, {
+            isStatic: true,
+          }),
+          //right wall
+          Bodies.rectangle(width, height / 2, 5, height, {
+            isStatic: true,
+          }),
+          //top wall
+          Bodies.rectangle(width / 2, 0, width, 50, {
+            density: 100,
+            isStatic: true,
+          }),
+        ];
+
+        entities.current = entityTexts.map((entity, i) => {
+          const x = (Math.random() * width) / 2;
+          return new Body(100 + x, 100, 100, 50, world, p, entity, false);
+        });
+
+        Composite.add(world, boundaries);
+
+        Composite.add(world, mouseConstraint);
+
+        Matter.Runner.run(engine.current);
+      };
+
+      p.draw = () => {
+        p.background("#fafafa");
+
+        entities.current.forEach((entity) => {
+          entity.show();
+        });
+
+        p.fill("#000");
+        p.textSize(80);
+        p.textFont("__Montserrat_3e707a");
+        p.textStyle(p.BOLD);
+        p.textAlign(p.CENTER, p.CENTER);
+        p.text("Trusted by 50+ \nFounders", p.width / 2, p.height / 2);
+
+        const bodiesUnderCursor =
+          Matter.Query.point(
+            entities.current.map((entity) => entity.body),
+            mouseConstraint.mouse.position
+          ).length > 0;
+        const isDragging = mouseConstraint.mouse.button === 0;
+
+        if (canvas) {
+          canvas.elt.style.cursor = isDragging
+            ? "grabbing"
+            : bodiesUnderCursor
+            ? "grab"
+            : "default";
+        }
+      };
+    };
+
+    new p5(sketch);
 
     return () => {
-      Render.stop(render);
-      World.clear(engine.current.world, false);
-      Engine.clear(engine.current);
-      render.canvas.remove();
+      // Composite.clear(world, false);
+      // Engine.clear(engine);
+      if (canvas) canvas.remove();
+      if (engine) Engine.clear(engine.current);
+      if (world) Composite.clear(world, false);
     };
   }, []);
-
-  const handleDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    isPressed.current = true;
-  };
-
-  const handleUp = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    isPressed.current = false;
-  };
-
-  const handleAddCircle = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    if (isPressed.current) {
-      const ball = Bodies.circle(
-        e.clientX,
-        e.clientY,
-        10 + Math.random() * 30,
-        {
-          mass: 10,
-          restitution: 0.9,
-          friction: 0.005,
-          render: {
-            fillStyle: "#0000ff",
-          },
-        }
-      );
-      World.add(engine.current.world, [ball]);
+  useEffect(() => {
+    if (worldRef.current) {
+      worldRef.current.addEventListener("wheel", scrollHandler);
     }
-  };
+
+    function scrollHandler(e: WheelEvent) {
+      //scroll dociument
+      document.documentElement.scrollTop += e.deltaY;
+      console.log(e.deltaY);
+    }
+
+    return () => {
+      if (worldRef.current) {
+        worldRef.current.removeEventListener("wheel", scrollHandler);
+      }
+    };
+  }, [worldRef.current]);
 
   return (
     <section>
-      <div
-        className=""
-        onMouseDown={handleDown}
-        onMouseUp={handleUp}
-        // onMouseMove={handleAddCircle}
-        ref={worldRef}
-      ></div>
-      <canvas ref={canvasRef}></canvas>
-      <span ref={boxRef} className="absolute bg-slate-600">
-        asdf
-      </span>
+      <div className="" ref={worldRef}></div>
     </section>
   );
 };
 
-
-
-class Box {
-  body: Body;
-  ele: HTMLSpanElement;
+class Body {
   w: number;
   h: number;
+  x: number;
+  y: number;
+  body: Matter.Body;
+  p: p5;
+  public text: string;
+  color: string;
 
   constructor(
     x: number,
     y: number,
     w: number,
     h: number,
-    options: {
-      worldRef: React.MutableRefObject<HTMLDivElement | null>;
-      classList: string[] | string;
-      color: string;
-      text: string;
-    }
+    world: Matter.World,
+    p: p5,
+    entity: { text: string; color: string },
+    isStatic = false
   ) {
     this.w = w;
     this.h = h;
-    const { worldRef, classList, text, color } = options;
-
-    this.body = Bodies.rectangle(x, y, w, h, {
-      render: {
-        fillStyle: "transparent",
-      },
+    this.x = x;
+    this.y = y;
+    this.p = p;
+    this.text = entity.text;
+    this.w = this.p.textWidth(entity.text) * 2.2 + 20;
+    this.color = entity.color;
+    this.body = Bodies.rectangle(x, y, this.w, h, {
+      isStatic,
+      chamfer: { radius: 25 },
     });
-
-    this.ele =
-      worldRef.current?.appendChild(document.createElement("span")) ??
-      document.createElement("span");
-
-    this.ele.classList.add(
-      ...(Array.isArray(classList) ? classList : [classList])
-    );
-
-    this.ele.style.width = `${w}px`;
-    this.ele.style.height = `${h}px`;
-    this.ele.style.backgroundColor = color;
-    this.ele.innerText = text;
-    this.ele.style.position = "absolute";
+    Matter.Composite.add(world, this.body);
   }
 
-  render() {
-    const pos = this.body.position;
-    this.ele.style.top = `${pos.y - this.h/2}px`;
-    this.ele.style.left = `${pos.x - this.w/2}px`;
-    this.ele.style.transform = `rotate(${this.body.angle}rad)`;
+  show() {
+    let pos = this.body.position;
+    let angle = this.body.angle;
+
+    this.p.push();
+    this.p.fill(this.color);
+    this.p.noStroke();
+    this.p.translate(pos.x, pos.y);
+    this.p.rotate(angle);
+    this.p.rectMode(this.p.CENTER);
+    this.p.rect(0, 0, this.w, this.h, 50);
+
+    this.p.fill("#000");
+    this.p.textFont("__Montserrat_3e707a");
+    this.p.textStyle(this.p.BOLD);
+    this.p.textAlign(this.p.CENTER, this.p.CENTER);
+    this.p.textSize(20);
+    this.p.text(this.text, 0, 0);
+
+    this.p.pop();
   }
 }

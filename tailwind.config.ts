@@ -12,7 +12,8 @@ const config: Config = {
         "4xl":'4rem'
       },
       color:{
-        accent:'#8330C2'
+        accent:'#8330C2',
+        primary:'#fafafa',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

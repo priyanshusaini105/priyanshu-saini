@@ -4,14 +4,14 @@ import { About, Hero,BgVideo, Navbar,Hero2, Quote, Testimonial } from "@/compone
 export default function Home() {
   return (
     <main className="">
-      {/* <Navbar/>
+      <Navbar/>
       <Hero2/>
-      <Quote/> */}
+      {/* <About/> */}
+      <Quote/>
+      {/* <BgVideo/> */}
       <Testimonial/>
       {/* <Laptop/> */}
-      {/* <BgVideo/> */}
-      {/* <Hero/>
-      <About/> */}
+      {/* <Hero/> */}
     </main>
   )
 }

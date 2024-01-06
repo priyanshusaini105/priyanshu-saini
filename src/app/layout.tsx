@@ -19,7 +19,8 @@ const montserrat = Montserrat({
   weight:['400','600','700']
 })
 
-export const varelaRound= Varela_Round ({
+
+const varelaRound= Varela_Round ({
   subsets:['latin'],
   variable:'--font-varela-round',
   weight:['400']

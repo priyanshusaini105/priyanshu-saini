@@ -11,17 +11,17 @@ export const Navbar = () => {
       href: "#home",
     },
     {
-      id: "1",
+      id: "2",
       title: "Home",
       href: "#home",
     },
     {
-      id: "1",
+      id: "3",
       title: "Home",
       href: "#home",
     },
     {
-      id: "1",
+      id: "4",
       title: "Home",
       href: "#home",
     },
